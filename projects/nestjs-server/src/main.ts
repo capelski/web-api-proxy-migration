@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { NotFoundFilter } from './not-found.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bodyParser: false });
 
   app.useGlobalFilters(new NotFoundFilter());
 

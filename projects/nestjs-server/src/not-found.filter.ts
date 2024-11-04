@@ -21,13 +21,16 @@ export class NotFoundFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
+    const endpoint = `${request.method} ${request.originalUrl}`;
+    logger.log(`Proxying ${endpoint}...`);
+
     try {
       this.expressServerProxy.web(request, response, undefined, (error) => {
-        logger.error(`Error proxying ${request.method} ${request.originalUrl}: ${error}`);
+        logger.error(`Error proxying ${endpoint}: ${error}`);
         response.status(500).end();
       });
     } catch (error) {
-      logger.error(`Error proxying ${request.method} ${request.originalUrl}: ${error}`);
+      logger.error(`Error proxying ${endpoint}: ${error}`);
       response.status(500).end();
     }
   }
