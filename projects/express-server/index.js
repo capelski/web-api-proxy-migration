@@ -15,6 +15,6 @@ app.get('/get-endpoint', (_req, res, _next) => { res.send('Hello world'); });
 
 app.post('/post-endpoint', (req, res, _next) => { res.send(`Hello world. ${JSON.stringify(req.body)}`); });
 
-app.listen(process.env.PORT ||3000, () => {
+app.listen(process.env.PORT ?? 3010, () => {
   console.log('Server up & running');
 });

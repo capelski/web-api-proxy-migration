@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "docker-compose up"
+    "build": "npm run build -w projects/nestjs-server && docker-compose build --no-cache",
+    "start": "npm run build && docker-compose up"
   },
   "keywords": [],
   "author": "",
