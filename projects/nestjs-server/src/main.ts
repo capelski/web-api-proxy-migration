@@ -1,4 +1,4 @@
-import { ArgumentsHost, Body, Catch, ConsoleLogger, Controller, ExceptionFilter, MiddlewareConsumer, Module, NestModule, NotFoundException, Post } from '@nestjs/common';
+import { ArgumentsHost, Body, Catch, ConsoleLogger, Controller, ExceptionFilter, Get, HttpException, MiddlewareConsumer, Module, NestModule, NotFoundException, Param, Post } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { json } from 'body-parser';
 import { Request, Response } from 'express';
@@ -39,6 +39,15 @@ export class NotFoundFilter implements ExceptionFilter {
 
 @Controller()
 export class AppController {
+  @Get('/get-endpoint/:id')
+  getEndpoint(@Param('id') id: string) {
+    if (id !== 'invalid-id') {
+      return 'Hello world';
+    } else {
+      throw new HttpException('Not Found', 404);
+    }
+  }
+
   @Post('/post-endpoint')
   postEndpoint(@Body() body: any) {
     return `Hello world. ${JSON.stringify(body)}`;
