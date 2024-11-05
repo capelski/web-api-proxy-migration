@@ -1,5 +1,6 @@
-import { ArgumentsHost, Catch, ConsoleLogger, Controller, ExceptionFilter, Module, NotFoundException } from '@nestjs/common';
+import { ArgumentsHost, Body, Catch, ConsoleLogger, Controller, ExceptionFilter, MiddlewareConsumer, Module, NestModule, NotFoundException, Post } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { json } from 'body-parser';
 import { Request, Response } from 'express';
 import Server, { createProxyServer } from 'http-proxy';
 
@@ -38,12 +39,22 @@ export class NotFoundFilter implements ExceptionFilter {
 
 @Controller()
 export class AppController {
+  @Post('/post-endpoint')
+  postEndpoint(@Body() body: any) {
+    return `Hello world. ${JSON.stringify(body)}`;
+  }
 }
 
 @Module({
   controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+    .apply(json())
+    .forRoutes('/post-endpoint');
+  }
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: false });
