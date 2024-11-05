@@ -5,15 +5,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  // Simplified authorization for demonstration purposes
-  if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized')
-  }
-
-  next();
-});
-
 app.get('/get-endpoint/:id', (req, res, _next) => {
   const { id } = req.params;
   if (id !== 'invalid-id') {
