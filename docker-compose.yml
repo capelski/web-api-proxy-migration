@@ -8,7 +8,7 @@ services:
   nestjs-server:
     build: ./projects/nestjs-server
     environment:
-      - EXPRESS_SERVER_URL=http://express-server:3010
+      - EXPRESS_SERVER_URL=http://express-server:3000
     ports:
       - 3000:3000
     command: npm run start:prod

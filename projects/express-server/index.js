@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.get('/get-endpoint/:id', (req, res, _next) => {
   const { id } = req.params;
-  if (id !== 'invalid') {
+  if (id !== 'invalid-id') {
     res.send('Hello world');
   } else {
     res.status(404).send('Not Found')

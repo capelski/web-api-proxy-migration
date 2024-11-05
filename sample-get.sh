@@ -1,7 +1,7 @@
 curl \
   -H 'authorization:aribtrary' \
-  http://localhost:3000/get-endpoint/id
+  http://localhost:3000/get-endpoint/valid-id
 
 # curl \
 #   -H 'authorization:aribtrary' \
-#   http://localhost:3000/get-endpoint/invalid
+#   http://localhost:3000/get-endpoint/invalid-id
